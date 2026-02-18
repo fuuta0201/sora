@@ -1,30 +1,51 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { MoonIcon, SunIcon } from "lucide-react";
 
-type ThemeType = "light" | "dark";
+type Theme = "light" | "dark";
 
 export default function ThemeToggleButton() {
-  const [theme, setTheme] = useState<ThemeType>("light");
+  const [theme, setTheme] = useState<Theme>("light");
+  const [mounted, setMounted] = useState<boolean>(false);
+
+  const getCurrentTheme = (): Theme => {
+    if (typeof window === "undefined") return "light";
+
+    const stored = localStorage.getItem(
+      "theme"
+    ) as Theme | null;
+    if (stored === "light" || stored === "dark")
+      return stored;
+
+    return window.matchMedia("(prefers-color-scheme: dark)")
+      .matches
+      ? "dark"
+      : "light";
+  };
+
+  const applyTheme = (theme: Theme) => {
+    const root = document.documentElement; // <html>
+    root.classList.toggle("dark", theme === "dark");
+  };
 
   const handleThemeChange = () => {
-    const htmlTag = document.querySelector("html");
-    if (!htmlTag) return;
-
-    const currentTheme = localStorage.getItem("theme");
-    if (!currentTheme || currentTheme === "light") {
-      // light -> dark
-      setTheme("dark");
-      htmlTag.classList.add("dark");
-      localStorage.setItem("theme", "dark");
-    } else {
-      // dark -> light
-      setTheme("light");
-      htmlTag.classList.remove("dark");
-      localStorage.setItem("theme", "light");
-    }
+    const next: Theme = theme === "dark" ? "light" : "dark";
+    setTheme(next);
+    applyTheme(next);
+    localStorage.setItem("theme", next);
   };
+
+  useEffect(() => {
+    const t = getCurrentTheme();
+    applyTheme(t);
+    setTimeout(() => {
+      setTheme(t);
+      setMounted(true);
+    }, 0);
+  }, []);
+
+  if (!mounted) return null;
 
   return (
     <Button
