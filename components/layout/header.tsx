@@ -4,7 +4,7 @@ import ThemeToggleButton from "./themeToggleButton";
 
 export default function Header() {
   return (
-    <header className="h-12 fixed w-[95%] top-3 left-1/2 -translate-x-1/2 rounded-lg bg-foreground opacity-70 flex items-center justify-between p-3">
+    <header className="h-12 fixed z-10 w-[95%] top-3 left-1/2 -translate-x-1/2 rounded-lg bg-foreground opacity-70 flex items-center justify-between p-3">
       <Link href="/" className="flex items-center gap-2">
         <Image
           src="/icon/sora-icon.svg"
