@@ -14,7 +14,9 @@ export default function MainVisual() {
         />
       </div>
       <div className="relative z-1 flex h-full items-end px-5 pb-9">
-        <h1 className="text-8xl font-bold">Sora</h1>
+        <h1 className="text-8xl font-extrabold opacity-75">
+          Sora
+        </h1>
       </div>
     </div>
   );
