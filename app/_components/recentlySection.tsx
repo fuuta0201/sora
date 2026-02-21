@@ -1,6 +1,6 @@
 "use client";
 import SectionTitle from "@/components/common/sectionTitle";
-import CardItem from "@/components/common/cardItem";
+import RecentlyCard from "@/app/_components/recentlyCard";
 import {
   Carousel,
   CarouselContent,
@@ -25,7 +25,7 @@ export default function RecentlySection() {
                 className="basis-[85%]"
               >
                 <div className="p-1">
-                  <CardItem />
+                  <RecentlyCard />
                 </div>
               </CarouselItem>
             ))}
