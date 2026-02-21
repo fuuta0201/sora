@@ -1,4 +1,3 @@
-"use client";
 import SectionTitle from "@/components/common/sectionTitle";
 import RecentlyCard from "@/app/_components/recentlyCard";
 import {

@@ -1,11 +1,9 @@
 import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardAction,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -31,13 +29,10 @@ export default function RecentlyCard() {
           </Badge>
         </CardAction>
         <CardTitle>お散歩中のソラ</CardTitle>
-        <CardDescription className="col-span-2">
-          土手を散歩してるソラだよ
+        <CardDescription className="col-span-2 min-h-15 overflow-hidden text-ellipsis leading-5 [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:3]">
+          土手を散歩してるソラだよ土手を散歩してるソラだよ土手を散歩してるソラだよ土手を散歩してるソラだよ土手を散歩してるソラだよ土手を散歩してるソラだよ土手を散歩してるソラだよ土手を散歩してるソラだよ土手を散歩してるソラだよ土手を散歩してるソラだよ土手を散歩してるソラだよ土手を散歩してるソラだよ
         </CardDescription>
       </CardHeader>
-      <CardFooter>
-        <Button className="w-full">投稿を見る</Button>
-      </CardFooter>
     </Card>
   );
 }
