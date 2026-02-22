@@ -10,7 +10,7 @@ export default function ImageItem() {
         </p>
         <Badge variant="secondary">トリミング後</Badge>
       </h3>
-      <div className="max-w-full w-full h-auto aspect-square relative">
+      <div className="max-w-full w-full aspect-square relative">
         <Image
           src="/images/4.webp"
           alt="お散歩中のソラ"
