@@ -3,48 +3,51 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 
 type Props = {
+  initialImageUrl: string;
   onUpload: (file: File | undefined) => void;
 };
 
 export default function ImageSelectSection({
+  initialImageUrl,
   onUpload,
 }: Props) {
-  const [imageURL, setImageURL] = useState<string>("");
+  const [imageUrl, setImageUrl] =
+    useState<string>(initialImageUrl);
 
   useEffect(() => {
     return () => {
       // プレビューURLの解放
-      if (imageURL) {
-        URL.revokeObjectURL(imageURL);
+      if (imageUrl) {
+        URL.revokeObjectURL(imageUrl);
       }
     };
-  }, [imageURL]);
+  }, [imageUrl]);
 
   const handleFileChange = (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
     const file = e.target.files?.[0];
-    if (imageURL) {
-      URL.revokeObjectURL(imageURL);
+    if (imageUrl) {
+      URL.revokeObjectURL(imageUrl);
     }
 
     if (!file) {
-      setImageURL("");
+      setImageUrl("");
       onUpload(undefined);
       return;
     }
 
     const url = URL.createObjectURL(file);
-    setImageURL(url);
+    setImageUrl(url);
     onUpload(file);
   };
 
   return (
     <div className="w-full px-4 py-6">
       <div className="w-full aspect-square relative">
-        {imageURL ? (
+        {imageUrl ? (
           <Image
-            src={imageURL}
+            src={imageUrl}
             fill={true}
             alt="選択された画像"
             className="object-cover rounded-lg"
