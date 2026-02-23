@@ -22,6 +22,7 @@ export default function Header() {
         alt="ユーザー情報アイコン"
         width={40}
         height={40}
+        loading="eager"
       />
     </header>
   );
