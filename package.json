@@ -31,7 +31,7 @@
     "react-day-picker": "^9.13.2",
     "react-dom": "19.2.3",
     "server-only": "^0.0.1",
-    "tailwind-merge": "^3.4.1"
+    "tailwind-merge": "^3.5.0"
   },
   "devDependencies": {
     "@hookform/resolvers": "^5.2.2",
