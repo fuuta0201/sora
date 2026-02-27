@@ -2,9 +2,9 @@ import "server-only";
 import { createClient } from "microcms-js-sdk";
 import { env } from "@/env";
 import {
-  Post,
+  PostContent,
   PostsResponse,
-  postSchema,
+  postContentSchema,
   postsResponseSchema,
 } from "@/types/microcms";
 import { InternalServerError } from "@/utils/errors";
@@ -36,9 +36,10 @@ export const getPosts = async (): Promise<
 
     const data = parsed.data;
 
-    const validPosts: Post[] = [];
+    const validPosts: PostContent[] = [];
     data.contents.forEach((content, index) => {
-      const validatedPost = postSchema.safeParse(content);
+      const validatedPost =
+        postContentSchema.safeParse(content);
       if (validatedPost.success) {
         validPosts.push(validatedPost.data);
         return;

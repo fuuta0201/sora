@@ -10,21 +10,22 @@ const imageUrlSchema = z.object({
 const genreSchema = z.enum(["cute", "sleeping", "walking"]);
 export type Genre = z.infer<typeof genreSchema>;
 
-export const postSchema = z.object({
+export const postContentSchema = z.object({
   id: z.string(),
   title: z.string(),
   body: z.string(),
   imageUrl: imageUrlSchema,
   genre: z.array(genreSchema),
+  user: z.email(),
   createdAt: z.string(),
   updatedAt: z.string(),
   publishedAt: z.string().optional(),
   revisedAt: z.string().optional(),
 });
-export type Post = z.infer<typeof postSchema>;
+export type PostContent = z.infer<typeof postContentSchema>;
 
 export const postsResponseSchema = z.object({
-  contents: z.array(postSchema),
+  contents: z.array(postContentSchema),
   totalCount: z.number().int().nonnegative(),
   offset: z.number().int().nonnegative(),
   limit: z.number().int().positive(),
