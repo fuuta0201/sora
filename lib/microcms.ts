@@ -1,5 +1,4 @@
 import "server-only";
-import { createClient } from "microcms-js-sdk";
 import { env } from "@/env";
 import {
   PostContent,
@@ -9,21 +8,35 @@ import {
 } from "@/types/microcms";
 import { LIST_LIMIT } from "@/utils/constants";
 
-const client = createClient({
-  serviceDomain: env.MICROCMS_SERVICE_DOMAIN,
-  apiKey: env.X_MICROCMS_API_KEY,
-});
-
 // GET Posts
 export const getPosts =
   async (): Promise<PostsResponse | null> => {
-    try {
-      const res = await client.getList({
-        endpoint: "posts",
-        queries: { limit: LIST_LIMIT },
-      });
+    const url = new URL(
+      `/api/v1/posts`,
+      `https://${env.MICROCMS_SERVICE_DOMAIN}.microcms.io`
+    );
+    url.searchParams.set("limit", String(LIST_LIMIT));
 
-      const parsed = postsResponseSchema.safeParse(res);
+    try {
+      const res = await fetch(url, {
+        headers: {
+          "X-MICROCMS-API-KEY": env.X_MICROCMS_API_KEY,
+        },
+        next: {
+          tags: ["posts"],
+        },
+      });
+      if (!res.ok) {
+        console.error(
+          "microCMS request failed",
+          res.status,
+          await res.text()
+        );
+        return null;
+      }
+      const json = await res.json();
+
+      const parsed = postsResponseSchema.safeParse(json);
       if (!parsed.success) {
         throw new Error("Invalid microCMS response");
       }
