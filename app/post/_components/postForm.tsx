@@ -1,9 +1,13 @@
 import { useState } from "react";
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod/v3";
+import { GENRE_LIST } from "@/utils/constants";
 import { Button } from "@/components/ui/button";
-import DatePicker from "@/components/ui/datePicker";
+
+type Props = {
+  imageUrl: string;
+};
 
 const formSchema = z.object({
   title: z
@@ -14,16 +18,21 @@ const formSchema = z.object({
     .string()
     .trim()
     .min(1, { message: "説明を入力してください" }),
-  date: z.date({ message: "日付を入力してください" }),
+  imageUrl: z.string().url(),
+  genre: z.enum(GENRE_LIST as [string, ...string[]], {
+    errorMap: () => ({
+      message: "ジャンルを選択してください",
+    }),
+  }),
+  user: z.string().email(),
 });
 type Form = z.infer<typeof formSchema>;
 
-export default function PostForm() {
+export default function PostForm({ imageUrl }: Props) {
   const [submitError, setSubmitError] =
     useState<string>("");
 
   const {
-    control,
     register,
     handleSubmit,
     formState: { errors },
@@ -32,7 +41,9 @@ export default function PostForm() {
     defaultValues: {
       title: "",
       body: "",
-      date: new Date(),
+      imageUrl: imageUrl,
+      genre: GENRE_LIST[0] ?? "",
+      user: "satofuta0201@gmail.com", // TODO : ログイン実装
     },
   });
 
@@ -79,21 +90,21 @@ export default function PostForm() {
 
       <div className="space-y-2">
         <label className="block text-sm font-medium">
-          日付
+          ジャンル
         </label>
-        <Controller
-          control={control}
-          name="date"
-          render={({ field }) => (
-            <DatePicker
-              date={field.value}
-              onSelectDate={(date) => field.onChange(date)}
-            />
-          )}
-        />
-        {errors.date && (
+        <select
+          {...register("genre")}
+          className="w-full rounded-md border px-3 py-2 bg-background"
+        >
+          {GENRE_LIST.map((genre) => (
+            <option key={genre} value={genre}>
+              {genre}
+            </option>
+          ))}
+        </select>
+        {errors.genre && (
           <p className="text-xs text-red-500">
-            {errors.date.message}
+            {errors.genre.message}
           </p>
         )}
       </div>

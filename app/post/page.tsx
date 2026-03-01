@@ -76,7 +76,7 @@ export default function Page() {
               className="object-cover rounded-lg"
             />
           </div>
-          <PostForm />
+          <PostForm imageUrl={microCmsImageUrl} />
         </div>
       )}
     </main>
