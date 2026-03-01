@@ -16,19 +16,36 @@ export default function Page() {
     string | undefined
   >(undefined);
 
+  const handleFileChange = (file: File | undefined) => {
+    if (!file) return;
+
+    setUploadedFile(file);
+    setMicroCmsImageUrl(undefined);
+  };
+
   // microCMS 画像アップロードAPIと通信
   // レスポンス : 画像URL
-  // TODO : API request
   const handleImagePost = async () => {
     if (!uploadedFile) return;
 
-    const buffer = Buffer.from(
-      await uploadedFile.arrayBuffer()
-    );
-    console.log(buffer);
-    // クリーンアップ
+    if (!microCmsImageUrl) {
+      const form = new FormData();
+      form.append("file", uploadedFile);
+
+      const res = await fetch("/api/upload", {
+        method: "POST",
+        body: form,
+      });
+
+      if (!res.ok) {
+        console.error(await res.text());
+        return;
+      }
+
+      const data = (await res.json()) as { url: string };
+      setMicroCmsImageUrl(data.url);
+    }
     setStatus("form");
-    setMicroCmsImageUrl("/images/4.webp");
   };
 
   return (
@@ -45,7 +62,7 @@ export default function Page() {
           initialImageUrl={
             microCmsImageUrl ? microCmsImageUrl : ""
           }
-          onUpload={(file) => setUploadedFile(file)}
+          onUpload={(file) => handleFileChange(file)}
         />
       )}
       {status === "form" && microCmsImageUrl && (
@@ -59,7 +76,7 @@ export default function Page() {
               className="object-cover rounded-lg"
             />
           </div>
-          <PostForm />
+          <PostForm imageUrl={microCmsImageUrl} />
         </div>
       )}
     </main>

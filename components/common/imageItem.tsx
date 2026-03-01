@@ -1,27 +1,36 @@
 import Image from "next/image";
+import { PostContent } from "@/types/microcms";
 import { Badge } from "@/components/ui/badge";
 
-export default function ImageItem() {
+type Props = {
+  content: PostContent;
+};
+
+export default function ImageItem({ content }: Props) {
+  const createdAt = new Date(content.createdAt);
+  const year = createdAt.getFullYear();
+  const month = createdAt.getMonth();
+  const date = createdAt.getDate();
   return (
     <div className="mb-4">
       <h3 className="px-4 py-2 flex items-center justify-between">
         <p className="text-md font-medium">
-          お散歩中のソラ
+          {content.title}
         </p>
-        <Badge variant="secondary">トリミング後</Badge>
+        <Badge variant="secondary">{content.genre}</Badge>
       </h3>
       <div className="max-w-full w-full aspect-square relative">
         <Image
-          src="/images/4.webp"
-          alt="お散歩中のソラ"
+          src={content.imageUrl.url}
+          alt={content.title}
           fill={true}
           className="aspect-square object-cover"
         />
       </div>
       <div className="px-4 py-3 flex flex-col gap-2">
-        <p className="text-sm">土手を散歩してるソラだよ</p>
+        <p className="text-sm">{content.body}</p>
         <p className="text-xs text-gray-500">
-          2026年1月2日
+          {`${year}年${month}月${date}日`}
         </p>
       </div>
     </div>
