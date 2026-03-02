@@ -9,7 +9,7 @@ type Props = {
 export default function ImageItem({ content }: Props) {
   const createdAt = new Date(content.createdAt);
   const year = createdAt.getFullYear();
-  const month = createdAt.getMonth();
+  const month = createdAt.getMonth() + 1;
   const date = createdAt.getDate();
   return (
     <div className="mb-4">

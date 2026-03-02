@@ -1,5 +1,6 @@
 // microCMS APIより取得されるデータの型定義
 import { z } from "zod";
+import { GENRE_LIST } from "@/utils/constants";
 
 const imageUrlSchema = z.object({
   url: z.url(),
@@ -7,7 +8,9 @@ const imageUrlSchema = z.object({
   height: z.number(),
 });
 
-const genreSchema = z.enum(["cute", "sleeping", "walking"]);
+const genreSchema = z.enum(
+  GENRE_LIST as [string, ...string[]]
+);
 export type Genre = z.infer<typeof genreSchema>;
 
 export const postContentSchema = z.object({

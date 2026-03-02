@@ -49,8 +49,8 @@ export async function POST(req: Request) {
     }
 
     return NextResponse.json({ url: json.url });
-  } catch (e) {
-    console.error(e);
+  } catch (error) {
+    console.error(error);
     return NextResponse.json(
       { error: "Unexpected error" },
       { status: 500 }

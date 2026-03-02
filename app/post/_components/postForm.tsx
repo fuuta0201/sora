@@ -49,7 +49,38 @@ export default function PostForm({ imageUrl }: Props) {
 
   const onSubmit = async (data: Form) => {
     setSubmitError("");
-    console.log(data);
+
+    try {
+      const res = await fetch("/api/post", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      if (!res.ok) {
+        let message = `投稿に失敗しました (${res.status})`;
+
+        try {
+          const err = await res.json();
+          message = err?.detail
+            ? `${err.error ?? "Error"}: ${err.detail}`
+            : (err?.error ?? message);
+        } catch {
+          const text = await res.text().catch(() => "");
+          if (text) message = text;
+        }
+        setSubmitError(message);
+        return;
+      }
+    } catch (error) {
+      const errText =
+        "通信エラーが発生しました。時間をおいて再度お試しください。";
+      if (error) {
+        setSubmitError(`${errText} : ${error}`);
+      } else {
+        setSubmitError(errText);
+      }
+    }
   };
 
   return (
