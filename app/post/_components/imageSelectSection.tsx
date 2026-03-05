@@ -11,8 +11,7 @@ export default function ImageSelectSection({
   initialImageUrl,
   onUpload,
 }: Props) {
-  const [imageUrl, setImageUrl] =
-    useState<string>(initialImageUrl);
+  const [imageUrl, setImageUrl] = useState<string>(initialImageUrl);
 
   useEffect(() => {
     return () => {
@@ -23,9 +22,7 @@ export default function ImageSelectSection({
     };
   }, [imageUrl]);
 
-  const handleFileChange = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (imageUrl) {
       URL.revokeObjectURL(imageUrl);
@@ -44,19 +41,17 @@ export default function ImageSelectSection({
 
   return (
     <div className="w-full px-4 py-6">
-      <div className="w-full aspect-square relative">
+      <div className="relative aspect-square w-full">
         {imageUrl ? (
           <Image
             src={imageUrl}
             fill={true}
             alt="選択された画像"
-            className="object-cover rounded-lg"
+            className="rounded-lg object-cover"
           />
         ) : (
-          <div className="w-full h-full rounded-lg border border-gray-300 border-dashed grid place-items-center">
-            <p className="text-sm text-gray-400">
-              画像が選択されていません
-            </p>
+          <div className="grid h-full w-full place-items-center rounded-lg border border-dashed border-gray-300">
+            <p className="text-sm text-gray-400">画像が選択されていません</p>
           </div>
         )}
       </div>
@@ -64,11 +59,7 @@ export default function ImageSelectSection({
         className="fixed bottom-5 left-1/2 -translate-x-1/2 text-sm"
         asChild
       >
-        <input
-          type="file"
-          accept="image/*"
-          onChange={handleFileChange}
-        />
+        <input type="file" accept="image/*" onChange={handleFileChange} />
       </Button>
     </div>
   );

@@ -21,10 +21,7 @@ export default function RecentlySection() {
         >
           <CarouselContent>
             {Array.from({ length: 5 }).map((_, index) => (
-              <CarouselItem
-                key={index}
-                className="basis-[85%]"
-              >
+              <CarouselItem key={index} className="basis-[85%]">
                 <div className="p-1">
                   <CategoryCard />
                 </div>

@@ -21,9 +21,5 @@ export default function CategoryBadge({ category }: Props) {
     else return defaultClassName;
   };
 
-  return (
-    <Badge className={judgeClass(category)}>
-      {category}
-    </Badge>
-  );
+  return <Badge className={judgeClass(category)}>{category}</Badge>;
 }

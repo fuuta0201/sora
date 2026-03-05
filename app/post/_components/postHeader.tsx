@@ -26,12 +26,12 @@ export default function PostHeader({
     }
   };
   return (
-    <div className="relative mt-15 flex w-full justify-center border-b border-b-gray-200 dark:border-b-gray-500 py-3">
+    <div className="relative mt-15 flex w-full justify-center border-b border-b-gray-200 py-3 dark:border-b-gray-500">
       <h1 className="font-semibold">新規投稿</h1>
       <button
         type="button"
         onClick={handleBack}
-        className="absolute left-4 top-1/2 -translate-y-1/2"
+        className="absolute top-1/2 left-4 -translate-y-1/2"
         aria-label="戻る"
       >
         <ChevronLeft size={30} />
@@ -39,7 +39,7 @@ export default function PostHeader({
       {isShowNextButton && status === "image" && (
         <Button
           variant="ghost"
-          className="absolute right-4 top-1/2 -translate-y-1/2"
+          className="absolute top-1/2 right-4 -translate-y-1/2"
           onClick={onPostImage}
           disabled={!isShowNextButton}
         >

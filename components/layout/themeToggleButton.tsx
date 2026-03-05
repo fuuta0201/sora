@@ -12,14 +12,10 @@ export default function ThemeToggleButton() {
   const getCurrentTheme = (): Theme => {
     if (typeof window === "undefined") return "light";
 
-    const stored = localStorage.getItem(
-      "theme"
-    ) as Theme | null;
-    if (stored === "light" || stored === "dark")
-      return stored;
+    const stored = localStorage.getItem("theme") as Theme | null;
+    if (stored === "light" || stored === "dark") return stored;
 
-    return window.matchMedia("(prefers-color-scheme: dark)")
-      .matches
+    return window.matchMedia("(prefers-color-scheme: dark)").matches
       ? "dark"
       : "light";
   };
@@ -51,7 +47,7 @@ export default function ThemeToggleButton() {
     <Button
       size="icon"
       variant="default"
-      className="ml-auto mr-2"
+      className="mr-2 ml-auto"
       onClick={handleThemeChange}
     >
       {theme === "light" ? <SunIcon /> : <MoonIcon />}
