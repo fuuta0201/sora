@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { PostContent } from "@/types/microcms";
-import GenreBadge from "./genreBadge";
+import CategoryBadge from "./categoryBadge";
 
 type Props = {
   content: PostContent;
@@ -15,7 +15,7 @@ export default function ImageItem({ content }: Props) {
     <div className="mb-4">
       <div className="px-4 py-2 flex items-center justify-between">
         <p className="text-sm">{content.user}</p>
-        <GenreBadge genre={content.genre[0]} />
+        <CategoryBadge category={content.category[0]} />
       </div>
       <div className="max-w-full w-full aspect-square relative">
         <Image

@@ -8,17 +8,17 @@ const imageUrlSchema = z.object({
   height: z.number(),
 });
 
-const genreSchema = z.enum(
+const categorySchema = z.enum(
   GENRE_LIST as [string, ...string[]]
 );
-export type Genre = z.infer<typeof genreSchema>;
+export type Category = z.infer<typeof categorySchema>;
 
 export const postContentSchema = z.object({
   id: z.string(),
   title: z.string(),
   body: z.string(),
   imageUrl: imageUrlSchema,
-  genre: z.array(genreSchema),
+  category: z.array(categorySchema),
   user: z.email(),
   createdAt: z.string(),
   updatedAt: z.string(),

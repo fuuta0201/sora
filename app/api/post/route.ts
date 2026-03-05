@@ -10,10 +10,10 @@ export async function POST(req: Request) {
   try {
     const json = await req.json();
 
-    // api側のgenreが配列型なので型を合わせる
+    // api側のcategoryが配列型なので型を合わせる
     const body = {
       ...json,
-      genre: [json.genre],
+      category: [json.category],
     };
 
     const res = await fetch(url.toString(), {

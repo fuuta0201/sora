@@ -1,10 +1,10 @@
 import { Badge } from "@/components/ui/badge";
 
 type Props = {
-  genre: string;
+  category: string;
 };
 
-export default function GenreBadge({ genre }: Props) {
+export default function CategoryBadge({ category }: Props) {
   const blueClassName =
     "bg-blue-50 text-blue-700 dark:bg-blue-950 dark:text-blue-300";
   const greenClassName =
@@ -14,14 +14,16 @@ export default function GenreBadge({ genre }: Props) {
   const defaultClassName =
     "bg-gray-50 text-black dark:bg-gray-900 dark:text-white";
 
-  const judgeClass = (genre: string) => {
-    if (genre === "walking") return blueClassName;
-    else if (genre === "sleeping") return greenClassName;
-    else if (genre === "cute") return redClassName;
+  const judgeClass = (category: string) => {
+    if (category === "walking") return blueClassName;
+    else if (category === "sleeping") return greenClassName;
+    else if (category === "cute") return redClassName;
     else return defaultClassName;
   };
 
   return (
-    <Badge className={judgeClass(genre)}>{genre}</Badge>
+    <Badge className={judgeClass(category)}>
+      {category}
+    </Badge>
   );
 }

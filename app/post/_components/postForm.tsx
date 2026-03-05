@@ -19,7 +19,7 @@ const formSchema = z.object({
     .trim()
     .min(1, { message: "説明を入力してください" }),
   imageUrl: z.string().url(),
-  genre: z.enum(GENRE_LIST as [string, ...string[]], {
+  category: z.enum(GENRE_LIST as [string, ...string[]], {
     errorMap: () => ({
       message: "ジャンルを選択してください",
     }),
@@ -42,7 +42,7 @@ export default function PostForm({ imageUrl }: Props) {
       title: "",
       body: "",
       imageUrl: imageUrl,
-      genre: GENRE_LIST[0] ?? "",
+      category: GENRE_LIST[0] ?? "",
       user: "satofuta0201@gmail.com", // TODO : ログイン実装
     },
   });
@@ -124,18 +124,18 @@ export default function PostForm({ imageUrl }: Props) {
           ジャンル
         </label>
         <select
-          {...register("genre")}
+          {...register("category")}
           className="w-full rounded-md border px-3 py-2 bg-background"
         >
-          {GENRE_LIST.map((genre) => (
-            <option key={genre} value={genre}>
-              {genre}
+          {GENRE_LIST.map((category) => (
+            <option key={category} value={category}>
+              {category}
             </option>
           ))}
         </select>
-        {errors.genre && (
+        {errors.category && (
           <p className="text-xs text-red-500">
-            {errors.genre.message}
+            {errors.category.message}
           </p>
         )}
       </div>
