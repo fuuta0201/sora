@@ -5,11 +5,13 @@ import {
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel";
+import { getRandomCategory } from "@/utils/category";
 
 export default function RecentlySection() {
+  const categoryName = getRandomCategory();
   return (
     <section className="container pl-4">
-      <SectionTitle>最近のソラ</SectionTitle>
+      <SectionTitle>{categoryName}カテゴリー</SectionTitle>
       <div>
         <Carousel
           opts={{
