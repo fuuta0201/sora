@@ -1,5 +1,5 @@
 import SectionTitle from "@/components/common/sectionTitle";
-import RecentlyCard from "@/app/_components/recentlyCard";
+import CategoryCard from "./categoryCard";
 import {
   Carousel,
   CarouselContent,
@@ -24,7 +24,7 @@ export default function RecentlySection() {
                 className="basis-[85%]"
               >
                 <div className="p-1">
-                  <RecentlyCard />
+                  <CategoryCard />
                 </div>
               </CarouselItem>
             ))}
