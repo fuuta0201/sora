@@ -4,4 +4,8 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    cooldown:
+      semver-patch-days: 2 # patchは2日待つ
+      semver-minor-days: 7 # minorは7日待つ
+      semver-major-days: 14 # majorは14日待つ
     open-pull-requests-limit: 10
