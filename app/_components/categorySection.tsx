@@ -1,15 +1,17 @@
 import SectionTitle from "@/components/common/sectionTitle";
-import RecentlyCard from "@/app/_components/recentlyCard";
+import CategoryCard from "./categoryCard";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel";
+import { getRandomCategory } from "@/utils/category";
 
 export default function RecentlySection() {
+  const categoryName = getRandomCategory();
   return (
     <section className="container pl-4">
-      <SectionTitle>最近のソラ</SectionTitle>
+      <SectionTitle>{categoryName}カテゴリー</SectionTitle>
       <div>
         <Carousel
           opts={{
@@ -24,7 +26,7 @@ export default function RecentlySection() {
                 className="basis-[85%]"
               >
                 <div className="p-1">
-                  <RecentlyCard />
+                  <CategoryCard />
                 </div>
               </CarouselItem>
             ))}

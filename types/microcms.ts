@@ -1,5 +1,6 @@
 // microCMS APIより取得されるデータの型定義
 import { z } from "zod";
+import { CATEGORY_LIST } from "@/utils/constants";
 
 const imageUrlSchema = z.object({
   url: z.url(),
@@ -7,15 +8,17 @@ const imageUrlSchema = z.object({
   height: z.number(),
 });
 
-const genreSchema = z.enum(["cute", "sleeping", "walking"]);
-export type Genre = z.infer<typeof genreSchema>;
+const categorySchema = z.enum(
+  CATEGORY_LIST as [string, ...string[]]
+);
+export type Category = z.infer<typeof categorySchema>;
 
 export const postContentSchema = z.object({
   id: z.string(),
   title: z.string(),
   body: z.string(),
   imageUrl: imageUrlSchema,
-  genre: z.array(genreSchema),
+  category: z.array(categorySchema),
   user: z.email(),
   createdAt: z.string(),
   updatedAt: z.string(),
@@ -32,4 +35,16 @@ export const postsResponseSchema = z.object({
 });
 export type PostsResponse = z.infer<
   typeof postsResponseSchema
+>;
+
+// POST payload
+export const createPayloadSchema = z.object({
+  title: z.string().min(1),
+  body: z.string().min(1),
+  imageUrl: z.url(),
+  category: z.array(categorySchema),
+  user: z.email(),
+});
+export type CreatePayload = z.infer<
+  typeof createPayloadSchema
 >;

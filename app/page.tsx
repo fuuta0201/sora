@@ -1,6 +1,6 @@
 import { getPosts } from "@/lib/microcms";
 import MainVisual from "./_components/mainVisual";
-import RecentlySection from "./_components/recentlySection";
+import CategorySection from "./_components/categorySection";
 import ListSection from "./_components/listSection";
 import PostButton from "./_components/postButton";
 
@@ -19,7 +19,7 @@ export default async function Home() {
     <main>
       <PostButton />
       <MainVisual />
-      <RecentlySection />
+      <CategorySection />
       {contents && <ListSection contents={contents} />}
     </main>
   );
