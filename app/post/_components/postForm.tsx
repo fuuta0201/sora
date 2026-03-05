@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod/v3";
-import { GENRE_LIST } from "@/utils/constants";
+import { CATEGORY_LIST } from "@/utils/constants";
 import { createPostAction } from "@/services/createPostAction";
 import { Button } from "@/components/ui/button";
 
@@ -20,7 +20,7 @@ const formSchema = z.object({
     .trim()
     .min(1, { message: "説明を入力してください" }),
   imageUrl: z.string().url(),
-  category: z.enum(GENRE_LIST as [string, ...string[]], {
+  category: z.enum(CATEGORY_LIST as [string, ...string[]], {
     errorMap: () => ({
       message: "ジャンルを選択してください",
     }),
@@ -43,7 +43,7 @@ export default function PostForm({ imageUrl }: Props) {
       title: "",
       body: "",
       imageUrl: imageUrl,
-      category: GENRE_LIST[0] ?? "",
+      category: CATEGORY_LIST[0] ?? "",
       user: "satofuta0201@gmail.com", // TODO : ログイン実装
     },
   });
@@ -114,7 +114,7 @@ export default function PostForm({ imageUrl }: Props) {
           {...register("category")}
           className="w-full rounded-md border px-3 py-2 bg-background"
         >
-          {GENRE_LIST.map((category) => (
+          {CATEGORY_LIST.map((category) => (
             <option key={category} value={category}>
               {category}
             </option>
