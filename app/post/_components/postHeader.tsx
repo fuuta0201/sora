@@ -36,7 +36,7 @@ export default function PostHeader({
       >
         <ChevronLeft size={30} />
       </button>
-      {isShowNextButton && (
+      {isShowNextButton && status === "image" && (
         <Button
           variant="ghost"
           className="absolute right-4 top-1/2 -translate-y-1/2"

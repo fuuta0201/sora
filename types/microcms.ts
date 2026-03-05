@@ -36,3 +36,15 @@ export const postsResponseSchema = z.object({
 export type PostsResponse = z.infer<
   typeof postsResponseSchema
 >;
+
+// POST payload
+export const createPayloadSchema = z.object({
+  title: z.string().min(1),
+  body: z.string().min(1),
+  imageUrl: z.url(),
+  category: z.array(categorySchema),
+  user: z.email(),
+});
+export type CreatePayload = z.infer<
+  typeof createPayloadSchema
+>;

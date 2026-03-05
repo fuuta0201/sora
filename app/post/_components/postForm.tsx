@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod/v3";
 import { GENRE_LIST } from "@/utils/constants";
+import { createPostAction } from "@/services/createPostAction";
 import { Button } from "@/components/ui/button";
 
 type Props = {
@@ -50,36 +51,22 @@ export default function PostForm({ imageUrl }: Props) {
   const onSubmit = async (data: Form) => {
     setSubmitError("");
 
+    const payload = {
+      ...data,
+      category: [data.category],
+    };
+
     try {
-      const res = await fetch("/api/post", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
+      await createPostAction(payload);
 
-      if (!res.ok) {
-        let message = `投稿に失敗しました (${res.status})`;
-
-        try {
-          const err = await res.json();
-          message = err?.detail
-            ? `${err.error ?? "Error"}: ${err.detail}`
-            : (err?.error ?? message);
-        } catch {
-          const text = await res.text().catch(() => "");
-          if (text) message = text;
-        }
-        setSubmitError(message);
-        return;
-      }
+      // TODO router.refresh();
     } catch (error) {
-      const errText =
-        "通信エラーが発生しました。時間をおいて再度お試しください。";
-      if (error) {
-        setSubmitError(`${errText} : ${error}`);
-      } else {
-        setSubmitError(errText);
-      }
+      const base = "投稿に失敗しました";
+      const detail =
+        error instanceof Error
+          ? error.message
+          : String(error ?? "");
+      setSubmitError(detail ? `${base}: ${detail}` : base);
     }
   };
 

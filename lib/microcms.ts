@@ -5,8 +5,14 @@ import {
   PostsResponse,
   postContentSchema,
   postsResponseSchema,
+  CreatePayload,
+  createPayloadSchema,
 } from "@/types/microcms";
 import { LIST_LIMIT } from "@/utils/constants";
+import {
+  BadRequestError,
+  InternalServerError,
+} from "@/utils/errors";
 
 // GET Posts
 export const getPosts =
@@ -70,3 +76,32 @@ export const getPosts =
       return null;
     }
   };
+
+// POST
+export const createPost = async (
+  payload: CreatePayload
+): Promise<void> => {
+  const url = new URL(
+    "/api/v1/posts",
+    `https://${env.MICROCMS_SERVICE_DOMAIN}.microcms.io`
+  );
+
+  const parsed = createPayloadSchema.safeParse(payload);
+  if (!parsed.success) {
+    throw BadRequestError;
+  }
+  const validPayload = parsed.data;
+
+  const res = await fetch(url.toString(), {
+    method: "POST",
+    headers: {
+      "X-MICROCMS-API-KEY": env.X_MICROCMS_API_KEY,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(validPayload),
+  });
+
+  if (!res.ok) {
+    throw InternalServerError;
+  }
+};
