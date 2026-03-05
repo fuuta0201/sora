@@ -4,17 +4,10 @@ import ThemeToggleButton from "./themeToggleButton";
 
 export default function Header() {
   return (
-    <header className="h-12 fixed z-10 w-[95%] top-3 left-1/2 -translate-x-1/2 rounded-lg bg-foreground opacity-70 flex items-center justify-between p-3">
+    <header className="bg-foreground fixed top-3 left-1/2 z-10 flex h-12 w-[95%] -translate-x-1/2 items-center justify-between rounded-lg p-3 opacity-70">
       <Link href="/" className="flex items-center gap-2">
-        <Image
-          src="/icon/sora-icon.svg"
-          alt="sora"
-          width={35}
-          height={35}
-        />
-        <p className="font-bold text-xl text-background">
-          Sora
-        </p>
+        <Image src="/icon/sora-icon.svg" alt="sora" width={35} height={35} />
+        <p className="text-background text-xl font-bold">Sora</p>
       </Link>
       <ThemeToggleButton />
       <Image

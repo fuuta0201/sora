@@ -10,13 +10,11 @@ export default function MainVisual() {
           fill
           priority
           sizes="100vw"
-          className="pointer-events-none object-cover mask-[linear-gradient(to_bottom,black_0%,black_55%,transparent_100%)]"
+          className="pointer-events-none mask-[linear-gradient(to_bottom,black_0%,black_55%,transparent_100%)] object-cover"
         />
       </div>
       <div className="relative z-1 flex h-full items-end px-5 pb-9">
-        <h1 className="text-8xl font-extrabold opacity-75">
-          Sora
-        </h1>
+        <h1 className="text-8xl font-extrabold opacity-75">Sora</h1>
       </div>
     </div>
   );

@@ -13,10 +13,7 @@ import {
 } from "react-day-picker";
 
 import { cn } from "@/lib/utils";
-import {
-  Button,
-  buttonVariants,
-} from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 
 function Calendar({
   className,
@@ -28,9 +25,7 @@ function Calendar({
   components,
   ...props
 }: React.ComponentProps<typeof DayPicker> & {
-  buttonVariant?: React.ComponentProps<
-    typeof Button
-  >["variant"];
+  buttonVariant?: React.ComponentProps<typeof Button>["variant"];
 }) {
   const defaultClassNames = getDefaultClassNames();
 
@@ -57,10 +52,7 @@ function Calendar({
           "flex gap-4 flex-col md:flex-row relative",
           defaultClassNames.months
         ),
-        month: cn(
-          "flex flex-col w-full gap-4",
-          defaultClassNames.month
-        ),
+        month: cn("flex flex-col w-full gap-4", defaultClassNames.month),
         nav: cn(
           "flex items-center gap-1 w-full absolute top-0 inset-x-0 justify-between",
           defaultClassNames.nav
@@ -104,10 +96,7 @@ function Calendar({
           "text-muted-foreground rounded-md flex-1 font-normal text-[0.8rem] select-none",
           defaultClassNames.weekday
         ),
-        week: cn(
-          "flex w-full mt-2",
-          defaultClassNames.week
-        ),
+        week: cn("flex w-full mt-2", defaultClassNames.week),
         week_number_header: cn(
           "select-none w-(--cell-size)",
           defaultClassNames.week_number_header
@@ -127,14 +116,8 @@ function Calendar({
           "rounded-l-md bg-accent",
           defaultClassNames.range_start
         ),
-        range_middle: cn(
-          "rounded-none",
-          defaultClassNames.range_middle
-        ),
-        range_end: cn(
-          "rounded-r-md bg-accent",
-          defaultClassNames.range_end
-        ),
+        range_middle: cn("rounded-none", defaultClassNames.range_middle),
+        range_end: cn("rounded-r-md bg-accent", defaultClassNames.range_end),
         today: cn(
           "bg-accent text-accent-foreground rounded-md data-[selected=true]:rounded-none",
           defaultClassNames.today
@@ -164,10 +147,7 @@ function Calendar({
         Chevron: ({ className, orientation, ...props }) => {
           if (orientation === "left") {
             return (
-              <ChevronLeftIcon
-                className={cn("size-4", className)}
-                {...props}
-              />
+              <ChevronLeftIcon className={cn("size-4", className)} {...props} />
             );
           }
 
@@ -181,10 +161,7 @@ function Calendar({
           }
 
           return (
-            <ChevronDownIcon
-              className={cn("size-4", className)}
-              {...props}
-            />
+            <ChevronDownIcon className={cn("size-4", className)} {...props} />
           );
         },
         DayButton: CalendarDayButton,

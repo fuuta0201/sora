@@ -13,11 +13,11 @@ export default function ImageItem({ content }: Props) {
   const date = createdAt.getDate();
   return (
     <div className="mb-4">
-      <div className="px-4 py-2 flex items-center justify-between">
+      <div className="flex items-center justify-between px-4 py-2">
         <p className="text-sm">{content.user}</p>
         <CategoryBadge category={content.category[0]} />
       </div>
-      <div className="max-w-full w-full aspect-square relative">
+      <div className="relative aspect-square w-full max-w-full">
         <Image
           src={content.imageUrl.url}
           alt={content.title}
@@ -25,10 +25,8 @@ export default function ImageItem({ content }: Props) {
           className="aspect-square object-cover"
         />
       </div>
-      <div className="px-4 py-3 flex flex-col gap-2">
-        <h3 className="text-md font-medium">
-          {content.title}
-        </h3>
+      <div className="flex flex-col gap-2 px-4 py-3">
+        <h3 className="text-md font-medium">{content.title}</h3>
         <p className="text-sm">{content.body}</p>
         <p className="text-xs text-gray-500">
           {`${year}年${month}月${date}日`}

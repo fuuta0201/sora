@@ -7,10 +7,7 @@ export async function POST(req: Request) {
     const file = incoming.get("file");
 
     if (!(file instanceof File)) {
-      return NextResponse.json(
-        { error: "file is required" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "file is required" }, { status: 400 });
     }
 
     const url = new URL(
@@ -51,9 +48,6 @@ export async function POST(req: Request) {
     return NextResponse.json({ url: json.url });
   } catch (error) {
     console.error(error);
-    return NextResponse.json(
-      { error: "Unexpected error" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Unexpected error" }, { status: 500 });
   }
 }

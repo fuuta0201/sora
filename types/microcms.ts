@@ -8,9 +8,7 @@ const imageUrlSchema = z.object({
   height: z.number(),
 });
 
-const categorySchema = z.enum(
-  CATEGORY_LIST as [string, ...string[]]
-);
+const categorySchema = z.enum(CATEGORY_LIST as [string, ...string[]]);
 export type Category = z.infer<typeof categorySchema>;
 
 export const postContentSchema = z.object({
@@ -33,9 +31,7 @@ export const postsResponseSchema = z.object({
   offset: z.number().int().nonnegative(),
   limit: z.number().int().positive(),
 });
-export type PostsResponse = z.infer<
-  typeof postsResponseSchema
->;
+export type PostsResponse = z.infer<typeof postsResponseSchema>;
 
 // POST payload
 export const createPayloadSchema = z.object({
@@ -45,6 +41,4 @@ export const createPayloadSchema = z.object({
   category: z.array(categorySchema),
   user: z.email(),
 });
-export type CreatePayload = z.infer<
-  typeof createPayloadSchema
->;
+export type CreatePayload = z.infer<typeof createPayloadSchema>;

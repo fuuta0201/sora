@@ -21,9 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja">
-      <body
-        className={`${notoSansJp.variable} antialiased`}
-      >
+      <body className={`${notoSansJp.variable} antialiased`}>
         <Header />
         {children}
       </body>

@@ -9,12 +9,10 @@ export type Status = "image" | "form";
 
 export default function Page() {
   const [status, setStatus] = useState<Status>("image");
-  const [uploadedFile, setUploadedFile] = useState<
-    File | undefined
-  >(undefined);
-  const [microCmsImageUrl, setMicroCmsImageUrl] = useState<
-    string | undefined
-  >(undefined);
+  const [uploadedFile, setUploadedFile] = useState<File | undefined>(undefined);
+  const [microCmsImageUrl, setMicroCmsImageUrl] = useState<string | undefined>(
+    undefined
+  );
 
   const handleFileChange = (file: File | undefined) => {
     if (!file) return;
@@ -59,21 +57,19 @@ export default function Page() {
       {status == "image" && (
         // 画像選択画面
         <ImageSelectSection
-          initialImageUrl={
-            microCmsImageUrl ? microCmsImageUrl : ""
-          }
+          initialImageUrl={microCmsImageUrl ? microCmsImageUrl : ""}
           onUpload={(file) => handleFileChange(file)}
         />
       )}
       {status === "form" && microCmsImageUrl && (
         // フォーム入力画面
-        <div className="w-full flex flex-col space-y-2 px-4 py-6">
-          <div className="w-full aspect-square relative">
+        <div className="flex w-full flex-col space-y-2 px-4 py-6">
+          <div className="relative aspect-square w-full">
             <Image
               src={microCmsImageUrl}
               fill={true}
               alt="投稿画像"
-              className="object-cover rounded-lg"
+              className="rounded-lg object-cover"
             />
           </div>
           <PostForm imageUrl={microCmsImageUrl} />

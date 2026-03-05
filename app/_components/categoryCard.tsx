@@ -17,11 +17,11 @@ export default function CategoryCard() {
         alt=""
         width={320}
         height={120}
-        className="relative z-20 aspect-video object-cover rounded-t-xl"
+        className="relative z-20 aspect-video rounded-t-xl object-cover"
       />
       <CardHeader className="relative">
         <CardTitle>お散歩中のソラ</CardTitle>
-        <CardDescription className="col-span-2 min-h-10 overflow-hidden text-ellipsis leading-5 [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2]">
+        <CardDescription className="col-span-2 [display:-webkit-box] min-h-10 overflow-hidden leading-5 text-ellipsis [-webkit-box-orient:vertical] [-webkit-line-clamp:2]">
           土手を散歩してるソラだよ土手を散歩してるソラだよ土手を散歩してるソラだよ土手を散歩してるソラだよ土手を散歩してるソラだよ土手を散歩してるソラだよ土手を散歩してるソラだよ土手を散歩してるソラだよ土手を散歩してるソラだよ土手を散歩してるソラだよ土手を散歩してるソラだよ土手を散歩してるソラだよ
         </CardDescription>
       </CardHeader>
