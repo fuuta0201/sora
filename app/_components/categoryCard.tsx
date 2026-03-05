@@ -1,12 +1,12 @@
 import Image from "next/image";
-import { Badge } from "@/components/ui/badge";
 import {
   Card,
-  CardAction,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 
 export default function CategoryCard() {
   return (
@@ -20,19 +20,14 @@ export default function CategoryCard() {
         className="relative z-20 aspect-video object-cover rounded-t-xl"
       />
       <CardHeader className="relative">
-        <CardAction>
-          <Badge
-            variant="secondary"
-            className="absolute -top-3 right-3"
-          >
-            トリミング後
-          </Badge>
-        </CardAction>
         <CardTitle>お散歩中のソラ</CardTitle>
-        <CardDescription className="col-span-2 min-h-15 overflow-hidden text-ellipsis leading-5 [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:3]">
+        <CardDescription className="col-span-2 min-h-10 overflow-hidden text-ellipsis leading-5 [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2]">
           土手を散歩してるソラだよ土手を散歩してるソラだよ土手を散歩してるソラだよ土手を散歩してるソラだよ土手を散歩してるソラだよ土手を散歩してるソラだよ土手を散歩してるソラだよ土手を散歩してるソラだよ土手を散歩してるソラだよ土手を散歩してるソラだよ土手を散歩してるソラだよ土手を散歩してるソラだよ
         </CardDescription>
       </CardHeader>
+      <CardFooter>
+        <Button className="w-full">投稿を見る</Button>
+      </CardFooter>
     </Card>
   );
 }
