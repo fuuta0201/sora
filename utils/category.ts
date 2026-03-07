@@ -7,6 +7,7 @@ const getJstDayNumber = () => {
   return Math.floor(jst.getTime() / (24 * 60 * 60 * 1000));
 };
 
+// ランダムにカテゴリー名取得
 export const getRandomCategory = (): string => {
   const day = getJstDayNumber();
 
