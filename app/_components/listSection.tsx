@@ -1,6 +1,6 @@
 import { PostContent } from "@/types/microcms";
 import SectionTitle from "@/components/common/sectionTitle";
-import ImageItem from "@/components/common/imageItem";
+import ImageItem from "@/app/_components/listItem";
 
 type Props = {
   contents: PostContent[];

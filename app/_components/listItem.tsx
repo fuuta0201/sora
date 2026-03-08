@@ -1,18 +1,18 @@
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { PostContent } from "@/types/microcms";
-import CategoryBadge from "./categoryBadge";
+import { getDateText } from "@/utils/date";
+import CategoryBadge from "../../components/common/categoryBadge";
+import PostModal from "@/components/common/postModal";
+import { Button } from "../../components/ui/button";
 
 type Props = {
   content: PostContent;
   isModal?: boolean;
 };
 
-export default function ImageItem({ content, isModal }: Props) {
-  const createdAt = new Date(content.createdAt);
-  const year = createdAt.getFullYear();
-  const month = createdAt.getMonth() + 1;
-  const date = createdAt.getDate();
+export default function ListItem({ content, isModal }: Props) {
+  const dateText = getDateText(content.createdAt);
   return (
     <div className={isModal ? "" : "mb-4"}>
       <div
@@ -34,10 +34,12 @@ export default function ImageItem({ content, isModal }: Props) {
       </div>
       <div className="flex flex-col gap-2 px-4 py-3">
         <h3 className="text-md font-medium">{content.title}</h3>
-        <p className="text-sm">{content.body}</p>
-        <p className="text-xs text-gray-500">
-          {`${year}年${month}月${date}日`}
-        </p>
+        <p className="truncate text-sm">{content.body}</p>
+        <p className="text-xs text-gray-500">{dateText}</p>
+        <PostModal
+          content={content}
+          renderButton={() => <Button className="w-full">投稿を見る</Button>}
+        />
       </div>
     </div>
   );
