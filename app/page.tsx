@@ -8,9 +8,11 @@ export default async function Home() {
   const res = await getPosts();
 
   if (!res) {
-    <main>
-      <p>データが見つかりませんでした</p>
-    </main>;
+    return (
+      <main>
+        <p>データが見つかりませんでした</p>
+      </main>
+    );
   }
 
   const contents = res?.contents;
@@ -20,7 +22,13 @@ export default async function Home() {
       <PostButton />
       <MainVisual />
       <CategorySection />
-      {contents && <ListSection contents={contents} />}
+      {contents && (
+        <ListSection
+          initialContents={res.contents}
+          initialOffset={res.offset}
+          totalCount={res.totalCount}
+        />
+      )}
     </main>
   );
 }

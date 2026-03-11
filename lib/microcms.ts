@@ -12,12 +12,17 @@ import { LIST_LIMIT } from "@/utils/constants";
 import { BadRequestError, InternalServerError } from "@/utils/errors";
 
 // GET Posts
-export const getPosts = async (): Promise<PostsResponse | null> => {
+export const getPosts = async (
+  offset?: number
+): Promise<PostsResponse | null> => {
   const url = new URL(
     `/api/v1/posts`,
     `https://${env.MICROCMS_SERVICE_DOMAIN}.microcms.io`
   );
   url.searchParams.set("limit", String(LIST_LIMIT));
+  if (offset !== undefined) {
+    url.searchParams.set("offset", String(offset));
+  }
 
   try {
     const res = await fetch(url, {
@@ -25,6 +30,7 @@ export const getPosts = async (): Promise<PostsResponse | null> => {
         "X-MICROCMS-API-KEY": env.X_MICROCMS_API_KEY,
       },
       next: {
+        revalidate: 60 * 60, // 1時間キャッシュ
         tags: ["posts"],
       },
     });
@@ -82,6 +88,7 @@ export const getPostsByCategory = async (
         "X-MICROCMS-API-KEY": env.X_MICROCMS_API_KEY,
       },
       next: {
+        revalidate: 60 * 60, // 1時間キャッシュ
         tags: [`posts-category-${cat}`],
       },
     });
