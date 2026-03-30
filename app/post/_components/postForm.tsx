@@ -1,9 +1,13 @@
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod/v3";
 import { CATEGORY_LIST } from "@/utils/constants";
 import { createPostAction } from "@/services/createPostAction";
+import { createClient } from "@/lib/supabase/client";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+
 import { Button } from "@/components/ui/button";
 
 type Props = {
@@ -25,10 +29,13 @@ type Form = z.infer<typeof formSchema>;
 
 export default function PostForm({ imageUrl }: Props) {
   const [submitError, setSubmitError] = useState<string>("");
+  const router = useRouter();
+  const supabase = useMemo(() => createClient(), []);
 
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<Form>({
     resolver: zodResolver(formSchema),
@@ -37,9 +44,28 @@ export default function PostForm({ imageUrl }: Props) {
       body: "",
       imageUrl: imageUrl,
       category: CATEGORY_LIST[0] ?? "",
-      user: "satofuta0201@gmail.com", // TODO : ログイン実装
+      user: "",
     },
   });
+
+  useEffect(() => {
+    const loadUser = async () => {
+      const {
+        data: { user },
+        error,
+      } = await supabase.auth.getUser();
+
+      if (error) {
+        return;
+      }
+
+      if (user?.email) {
+        setValue("user", user.email);
+      }
+    };
+
+    void loadUser();
+  }, [supabase, setValue]);
 
   const onSubmit = async (data: Form) => {
     setSubmitError("");
@@ -52,7 +78,14 @@ export default function PostForm({ imageUrl }: Props) {
     try {
       await createPostAction(payload);
 
-      // TODO router.refresh();
+      toast.success("投稿が完了しました", {
+        description: "一覧ページへ移動します",
+        duration: 2000, // 2秒表示
+        position: "top-right",
+        onAutoClose: () => {
+          router.push("/");
+        },
+      });
     } catch (error) {
       const base = "投稿に失敗しました";
       const detail =

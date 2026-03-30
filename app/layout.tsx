@@ -3,6 +3,7 @@ import { Noto_Sans_JP } from "next/font/google";
 import "./globals.css";
 
 import Header from "@/components/layout/header";
+import { Toaster } from "@/components/ui/sonner";
 
 const notoSansJp = Noto_Sans_JP({
   variable: "--font-noto-sans-jp",
@@ -24,6 +25,7 @@ export default function RootLayout({
       <body className={`${notoSansJp.variable} antialiased`}>
         <Header />
         {children}
+        <Toaster richColors />
       </body>
     </html>
   );
