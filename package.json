@@ -37,7 +37,7 @@
   },
   "devDependencies": {
     "@hookform/resolvers": "^5.2.2",
-    "@t3-oss/env-nextjs": "^0.13.10",
+    "@t3-oss/env-nextjs": "^0.13.11",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^25",
     "@types/react": "^19",
