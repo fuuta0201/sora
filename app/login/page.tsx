@@ -52,16 +52,20 @@ export default function Page() {
   });
 
   const onSubmit = async (formData: z.infer<typeof formSchema>) => {
-    const { error } = await supabase.auth.signInWithPassword({
-      email: formData.email,
-      password: formData.password,
-    });
+    try {
+      const { error } = await supabase.auth.signInWithPassword({
+        email: formData.email,
+        password: formData.password,
+      });
 
-    if (error) {
-      console.error(`Failed to login : ${error.message}`);
+      if (error) {
+        throw new Error(`Failed to login : ${error.message}`);
+      } else {
+        router.push("/");
+      }
+    } catch (error) {
+      console.error(error);
       setError("ログインに失敗しました");
-    } else {
-      router.push("/");
     }
   };
 
