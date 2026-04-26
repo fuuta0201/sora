@@ -1,7 +1,7 @@
 import { getPostsByUser } from "@/lib/microcms";
 import { verifySession } from "@/lib/supabase/auth";
 import MainVisual from "../_components/mainVisual";
-import ListSection from "../_components/listSection";
+import ListSection from "../../components/common/listSection";
 import PostButton from "../_components/postButton";
 
 export default async function Page() {
@@ -35,6 +35,7 @@ export default async function Page() {
           initialOffset={res.offset}
           totalCount={res.totalCount}
           email={user.email}
+          pageType="mypage"
         />
       )}
     </main>

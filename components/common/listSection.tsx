@@ -4,7 +4,7 @@ import { useInView } from "react-intersection-observer";
 import { getMorePostsAction } from "@/services/getMorePostsAction";
 import { PostContent } from "@/types/microcms";
 import SectionTitle from "@/components/common/sectionTitle";
-import ImageItem from "@/app/_components/listItem";
+import ListItem from "./listItem";
 import { Spinner } from "@/components/ui/spinner";
 
 type Props = {
@@ -12,6 +12,7 @@ type Props = {
   initialOffset: number;
   totalCount: number;
   email?: string;
+  pageType?: "default" | "mypage";
 };
 
 export default function ListSection({
@@ -19,6 +20,7 @@ export default function ListSection({
   initialOffset,
   totalCount,
   email,
+  pageType,
 }: Props) {
   const [contents, setContents] = useState<PostContent[]>(initialContents);
   const [offset, setOffset] = useState<number>(
@@ -28,6 +30,13 @@ export default function ListSection({
   const { ref: trackingRef, inView } = useInView();
 
   const hasMore = contents.length < totalCount;
+
+  useEffect(() => {
+    setTimeout(() => {
+      setContents(initialContents);
+      setOffset(initialOffset + initialContents.length);
+    }, 0);
+  }, [initialContents, initialOffset]);
 
   useEffect(() => {
     if (!inView || !hasMore || isPending) return;
@@ -53,7 +62,7 @@ export default function ListSection({
       <ul>
         {contents.map((content) => (
           <li key={content.id}>
-            <ImageItem content={content} />
+            <ListItem content={content} pageType={pageType} />
           </li>
         ))}
       </ul>

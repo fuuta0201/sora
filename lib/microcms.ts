@@ -150,7 +150,6 @@ export const getPostsByUser = async (
         "X-MICROCMS-API-KEY": env.X_MICROCMS_API_KEY,
       },
       next: {
-        revalidate: 60 * 60, // 1時間キャッシュ
         tags: [`posts-user-${email}`],
       },
     });
@@ -215,5 +214,32 @@ export const createPost = async (payload: CreatePayload): Promise<void> => {
 
   if (!res.ok) {
     throw InternalServerError;
+  }
+};
+
+// DELETE
+export const deletePost = async (id: string): Promise<void> => {
+  if (!id) {
+    throw BadRequestError;
+  }
+
+  const url = new URL(
+    `/api/v1/posts/${id}`,
+    `https://${env.MICROCMS_SERVICE_DOMAIN}.microcms.io`
+  );
+
+  try {
+    const res = await fetch(url.toString(), {
+      method: "DELETE",
+      headers: {
+        "X-MICROCMS-API-KEY": env.X_MICROCMS_API_KEY,
+      },
+    });
+
+    if (!res.ok) {
+      throw InternalServerError;
+    }
+  } catch (error) {
+    console.error("Failed to delete post from microCMS", error);
   }
 };

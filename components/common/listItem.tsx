@@ -5,13 +5,16 @@ import { getDateText } from "@/utils/date";
 import CategoryBadge from "../../components/common/categoryBadge";
 import PostModal from "@/components/common/postModal";
 import { Button } from "../../components/ui/button";
+import { TrashIcon } from "lucide-react";
+import DeleteModal from "@/app/my-page/_components/deleteModal";
 
 type Props = {
   content: PostContent;
   isModal?: boolean;
+  pageType?: "default" | "mypage";
 };
 
-export default function ListItem({ content, isModal }: Props) {
+export default function ListItem({ content, isModal, pageType }: Props) {
   const dateText = getDateText(content.createdAt);
   return (
     <div className={isModal ? "" : "mb-4"}>
@@ -40,6 +43,18 @@ export default function ListItem({ content, isModal }: Props) {
           content={content}
           renderButton={() => <Button className="w-full">投稿を見る</Button>}
         />
+        {pageType === "mypage" && (
+          <DeleteModal
+            id={content.id}
+            email={content.user}
+            renderButton={() => (
+              <Button variant="destructive" className="w-full">
+                <TrashIcon />
+                <p>投稿を削除</p>
+              </Button>
+            )}
+          />
+        )}
       </div>
     </div>
   );
