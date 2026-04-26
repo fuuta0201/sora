@@ -1,7 +1,7 @@
 import { getPosts } from "@/lib/microcms";
 import MainVisual from "./_components/mainVisual";
 import CategorySection from "./_components/categorySection";
-import ListSection from "./_components/listSection";
+import ListSection from "../components/common/listSection";
 import PostButton from "./_components/postButton";
 
 export default async function Home() {

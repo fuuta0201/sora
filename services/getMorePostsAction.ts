@@ -1,10 +1,15 @@
 "use server";
-import { getPosts } from "@/lib/microcms";
+import { getPosts, getPostsByUser } from "@/lib/microcms";
 import { PostsResponse } from "@/types/microcms";
 
 export const getMorePostsAction = async (
-  offset: number
+  offset: number,
+  email?: string
 ): Promise<PostsResponse | null> => {
   // TODO : verify session
-  return await getPosts(offset);
+  if (email) {
+    return await getPostsByUser(email, offset);
+  } else {
+    return await getPosts(offset);
+  }
 };

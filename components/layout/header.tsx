@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import ThemeToggleButton from "./themeToggleButton";
+import { Button } from "../ui/button";
 
 import {
   Popover,
@@ -29,10 +30,9 @@ export default function Header() {
         </PopoverTrigger>
         <PopoverContent className="grid w-40 gap-2">
           <LogoutButton />
-          {/* TODO : マイページ */}
-          {/* <Button variant="ghost" className="w-full bg-gray-100">
-            マイページ
-          </Button> */}
+          <Button variant="ghost" className="w-full bg-gray-100" asChild>
+            <Link href={"my-page"}>マイページ</Link>
+          </Button>
         </PopoverContent>
       </Popover>
     </header>

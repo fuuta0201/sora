@@ -1,41 +1,60 @@
 "use client";
-import { useState, useTransition } from "react";
-import { useOnInView } from "react-intersection-observer";
+import { useEffect, useState, useTransition } from "react";
+import { useInView } from "react-intersection-observer";
 import { getMorePostsAction } from "@/services/getMorePostsAction";
 import { PostContent } from "@/types/microcms";
 import SectionTitle from "@/components/common/sectionTitle";
-import ImageItem from "@/app/_components/listItem";
+import ListItem from "./listItem";
 import { Spinner } from "@/components/ui/spinner";
 
 type Props = {
   initialContents: PostContent[];
   initialOffset: number;
   totalCount: number;
+  email?: string;
+  pageType?: "default" | "mypage";
 };
 
 export default function ListSection({
   initialContents,
   initialOffset,
   totalCount,
+  email,
+  pageType,
 }: Props) {
   const [contents, setContents] = useState<PostContent[]>(initialContents);
   const [offset, setOffset] = useState<number>(
     initialOffset + initialContents.length
   );
   const [isPending, startTransition] = useTransition();
+  const { ref: trackingRef, inView } = useInView();
 
   const hasMore = contents.length < totalCount;
 
-  const trackingRef = useOnInView((inView) => {
+  useEffect(() => {
+    setTimeout(() => {
+      setContents(initialContents);
+      setOffset(initialOffset + initialContents.length);
+    }, 0);
+  }, [initialContents, initialOffset]);
+
+  useEffect(() => {
     if (!inView || !hasMore || isPending) return;
 
     startTransition(async () => {
-      const res = await getMorePostsAction(offset);
+      const res = await getMorePostsAction(offset, email);
       if (!res) return;
-      setContents((prev) => [...prev, ...res.contents]);
+
+      setContents((prev) => {
+        const existingIds = new Set(prev.map((content) => content.id));
+        const newContents = res.contents.filter(
+          (content) => !existingIds.has(content.id)
+        );
+        return [...prev, ...newContents];
+      });
       setOffset((prev) => prev + res.contents.length);
     });
-  });
+  }, [inView, hasMore, isPending, offset, email]);
 
   return (
     <section className="container">
@@ -43,7 +62,7 @@ export default function ListSection({
       <ul>
         {contents.map((content) => (
           <li key={content.id}>
-            <ImageItem content={content} />
+            <ListItem content={content} pageType={pageType} />
           </li>
         ))}
       </ul>
