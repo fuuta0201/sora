@@ -4,6 +4,7 @@ import Image from "next/image";
 import PostHeader from "./_components/postHeader";
 import ImageSelectSection from "./_components/imageSelectSection";
 import PostForm from "./_components/postForm";
+import { uploadImageAction } from "@/services/uploadImageAction";
 
 export type Status = "image" | "form";
 
@@ -30,18 +31,13 @@ export default function Page() {
       const form = new FormData();
       form.append("file", uploadedFile);
 
-      const res = await fetch("/api/upload", {
-        method: "POST",
-        body: form,
-      });
-
-      if (!res.ok) {
-        console.error(await res.text());
+      try {
+        const data = await uploadImageAction(form);
+        setMicroCmsImageUrl(data.url);
+      } catch (error) {
+        console.error(error);
         return;
       }
-
-      const data = (await res.json()) as { url: string };
-      setMicroCmsImageUrl(data.url);
     }
     setStatus("form");
   };
