@@ -28,7 +28,7 @@ export default function Header() {
             loading="eager"
           />
         </PopoverTrigger>
-        <PopoverContent className="grid w-40 gap-2">
+        <PopoverContent className="dark:bg-foreground dark:text-background grid w-40 gap-2">
           <LogoutButton />
           <Button variant="ghost" className="w-full bg-gray-100" asChild>
             <Link href={"my-page"}>マイページ</Link>
