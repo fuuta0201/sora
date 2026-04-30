@@ -60,9 +60,9 @@ export default function Page() {
 
       if (error) {
         throw new Error(`Failed to login : ${error.message}`);
-      } else {
-        router.push("/");
       }
+
+      router.push("/");
     } catch (error) {
       console.error(error);
       setError("ログインに失敗しました");
