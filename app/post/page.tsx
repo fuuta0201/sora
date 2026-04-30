@@ -5,6 +5,7 @@ import PostHeader from "./_components/postHeader";
 import ImageSelectSection from "./_components/imageSelectSection";
 import PostForm from "./_components/postForm";
 import { uploadImageAction } from "@/services/uploadImageAction";
+import imageCompression from "browser-image-compression";
 
 export type Status = "image" | "form";
 
@@ -28,8 +29,15 @@ export default function Page() {
     if (!uploadedFile) return;
 
     if (!microCmsImageUrl) {
+      // 画像最適化
+      const compressedFile = await imageCompression(uploadedFile, {
+        maxSizeMB: 1,
+        maxWidthOrHeight: 1920,
+        useWebWorker: true,
+      });
+
       const form = new FormData();
-      form.append("file", uploadedFile);
+      form.append("file", compressedFile);
 
       try {
         const data = await uploadImageAction(form);
