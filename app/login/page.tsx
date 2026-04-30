@@ -11,7 +11,6 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -62,6 +61,7 @@ export default function Page() {
         throw new Error(`Failed to login : ${error.message}`);
       }
 
+      router.refresh();
       router.push("/");
     } catch (error) {
       console.error(error);
@@ -117,17 +117,15 @@ export default function Page() {
                 )}
               />
             </FieldGroup>
+            <Field orientation="horizontal" className="mt-4">
+              <Button type="submit" form="login">
+                ログイン
+                {isSubmitting && <Spinner />}
+              </Button>
+              {error && <FieldError errors={[{ message: error }]} />}
+            </Field>
           </form>
         </CardContent>
-        <CardFooter>
-          <Field orientation="horizontal">
-            <Button type="submit" form="login">
-              ログイン
-              {isSubmitting && <Spinner />}
-            </Button>
-            {error && <FieldError errors={[{ message: error }]} />}
-          </Field>
-        </CardFooter>
       </Card>
     </main>
   );
